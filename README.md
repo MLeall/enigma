@@ -16,4 +16,4 @@ This project uses Git version control system to manage code changes, and will be
 
 ## Attention 
 
-Be sure to check 'instructions.txt' to install all needed.		
+Be sure to check 'requirements.txt' to install all needed.		
