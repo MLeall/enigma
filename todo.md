@@ -1,24 +1,30 @@
-# Projeto Enigma
+# Enigma Project Guideline
 
-## Planejamento
+## Planning
 
-O chatGPT sugeriu com caminho para termos de rumo:
+1. *Understand the Enigma machine:* Familiarize yourself with the workings of the original Enigma machine. Learn about its components, such as the rotors, reflector, plugboard, and how they interact to encrypt and decrypt messages.
 
-1. Representação dos componentes: Primeiro, você precisa criar uma representação dos componentes da Enigma, como o teclado, os rotores, os refletores e as lâmpadas. Você pode usar estruturas de dados como matrizes ou dicionários para mapear as substituições de letras.
+2. *Design your Enigma machine class:* Create a class that represents the Enigma machine. This class will encapsulate the behavior of the machine, including rotor configurations, current rotor positions, and encryption/decryption logic.
 
-2. Definição das configurações iniciais: Assim como na Enigma real, você precisa permitir que o usuário defina as configurações iniciais dos rotores, como sua ordem, posição inicial e as ligações elétricas. Isso pode ser feito por meio de uma interface de usuário ou por meio de entradas no código.
+3. *Implement the rotor mechanism:* Each rotor in the Enigma machine rotates with every key press. Implement a class to represent a rotor, including its wiring configuration, position, and the logic for rotating it.
 
-3. Implementação das substituições de letras: Ao pressionar uma tecla, você precisa implementar a lógica de substituição de letras, passando a corrente elétrica pelos rotores e refletores. Você pode usar as configurações definidas anteriormente para realizar as substituições corretas e garantir que cada letra seja trocada por outra.
+4. *Create the plugboard:* The plugboard allows swapping of letters before and after the rotor mechanism. Implement a class to represent the plugboard, which will handle letter substitutions.
 
-4. Rotação dos rotores: Os rotores na Enigma giram conforme as teclas são pressionadas. Você precisa implementar a lógica para girar os rotores na ordem correta e na posição correta, simulando o movimento dos rotores reais.
+5. *Build the encryption and decryption logic:* Implement methods in the Enigma machine class to perform encryption and decryption. These methods should handle the flow of data through the rotor mechanism, reflector, and plugboard.
 
-5. Iluminação dos caracteres: Depois de passar pelas substituições, a corrente elétrica atinge a lâmpada correspondente à letra criptografada. Você deve implementar a lógica para identificar qual lâmpada deve ser iluminada com base na letra criptografada.
+6. *Handle input and output:* Decide how you want to receive input and display output. You can choose to read input from the command line or a file, and display the output similarly.
 
-6. Criptografia e decodificação: Com as etapas anteriores implementadas, você pode criar funções para criptografar e decodificar mensagens usando a simulação da Enigma. A criptografia envolverá passar uma mensagem letra por letra pelos componentes simulados, enquanto a decodificação seguirá o processo inverso.
+7. *Create a user interface (optional):* If you want a graphical interface, consider using a GUI library like Tkinter to create a user-friendly interface for inputting text, configuring rotor settings, and displaying the encrypted/decrypted output.
 
-## Ideias
+8. *Test your implementation:* Write test cases to validate the correctness of your implementation. Ensure that the encryption and decryption processes produce the expected results.
 
-Pensei em listar algumas ideias para ter no projeto final. Fiquem a vontade pra acrescentar mais.
+9. *Expand and experiment (optional):* Once you have a working Enigma machine emulator, you can further enhance it by adding features like additional rotor types, configurable rotor settings, or even simulating historical Enigma machine variants.
 
-- Utilizar pacote `tkinter` para criação de uma GUI ❌
-- Criação de uma aplicação web do nosso projeto ❌
+Remember to refer to historical documentation and resources on Enigma machines to ensure the accuracy of your implementation. It's also helpful to break down the problem into smaller tasks and implement them incrementally. This approach allows you to test and debug each component before integrating them into the final implementation.
+
+## Ideas
+
+List of suggestions to be made after the main code is completed. Feel free to write anything.
+
+- Use lib `tkinter` to create a GUI ❌
+- Create a web application for our project. We can use Flask/Django for that ❌
