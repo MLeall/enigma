@@ -1,19 +1,15 @@
 # Enigma Machine Encryption Project
 
-This project aims to create a website that emulates the famous Enigma machine encryption method used during World War II. The website will allow users to encrypt and decrypt their messages using the same algorithm as the original Enigma machine.
+This project aims to emulate the famous Enigma machine encryption method used during World War II. It will allow users to encrypt and decrypt their messages using the same (or closest as possible) algorithm as the original Enigma machine.
 
-## Features
+## Features and ideas
 
 1. Emulate the original Enigma machine encryption method.
-2. Web interface for easy use of the algorithm.
-3. Allow users to input their own settings, such as rotor positions and plugboard configurations.
-4. Option to save encrypted messages in a file.
-
-## Technology Used
-
-This project uses Git version control system to manage code changes, and will be written in the programming language of your choice.
-
+2. Allow users to input their own settings, such as rotor positions and plugboard configurations.
+3. Option to save encrypted messages in a file.
+4. Future plans to use `tkinter` for GUI.
+5. Future plans to create a web interface for easy use of the algorithm.
 
 ## Attention 
 
-Be sure to check 'requirements.txt' to install all needed.		
+Be sure to check 'requirements.txt'.		

@@ -1,18 +1,40 @@
 class Enigma:
-    """
-    Enigma class should have the rotors logic, encryption and decryption logic and a management method to ensure consistency.
-    """
+    # Enigma class should have the rotors logic, encryption and decryption logic and a management method to ensure consistency.
     def __init__(self) -> None:
-        pass
+        self.rotors_position = [0 , 0 , 0]
+        # Default mapping for rotors 1, 2, 3:
+        self.rotor1_mapping = {
+            'A': 'G', 'B': 'R', 'C': 'S', 'D': 'J', 'E': 'K',
+            'F': 'X', 'G': 'A', 'H': 'V', 'I': 'T', 'J': 'D',
+            'K': 'E', 'L': 'M', 'M': 'L', 'N': 'U', 'O': 'P',
+            'P': 'F', 'Q': 'Z', 'R': 'B', 'S': 'C', 'T': 'I',
+            'U': 'N', 'V': 'H', 'W': 'Y', 'X': 'Q', 'Y': 'W',
+            'Z': 'O'
+        }
+        self.rotor2_mapping = {
+            'A': 'Y', 'B': 'E', 'C': 'G', 'D': 'L', 'E': 'B',
+            'F': 'U', 'G': 'C', 'H': 'P', 'I': 'T', 'J': 'Z',
+            'K': 'Q', 'L': 'D', 'M': 'X', 'N': 'A', 'O': 'W',
+            'P': 'H', 'Q': 'K', 'R': 'S', 'S': 'R', 'T': 'I',
+            'U': 'F', 'V': 'N', 'W': 'O', 'X': 'M', 'Y': 'V',
+            'Z': 'J'
+        }
+        self.rotor3_mapping = {
+            'A': 'Z', 'B': 'C', 'C': 'B', 'D': 'O', 'E': 'P',
+            'F': 'U', 'G': 'S', 'H': 'J', 'I': 'T', 'J': 'H',
+            'K': 'Q', 'L': 'M', 'M': 'L', 'N': 'Y', 'O': 'D',
+            'P': 'E', 'Q': 'K', 'R': 'X', 'S': 'G', 'T': 'I',
+            'U': 'F', 'V': 'A', 'W': 'R', 'X': 'F', 'Y': 'N',
+            'Z': 'W'
+        }
 
     def encrypt(self, message):
         """
-        This method is responsible for iterate the message provide by user and use (still_to_be_coded_method) to process each char of the message.
-        Return a encrypted version of the message provided by the user.
+        Return a encrypted version of the message provided
         """
         encrypted_message = ''
-        for i in encrypted_message:
-            if i.isalpha():
+        for char in encrypted_message:
+            if char.upper().isalpha():
                 encrypted_char = '' # method responsible for process and encrypt the char. Still need to be coded.
 
                 encrypted_message += encrypted_char
@@ -21,15 +43,16 @@ class Enigma:
 
     def decrypt(self, message):
         """
-        Since the Enigma machine uses a symmetric encryption algorithm, the encryption and decryption processes are essentially the same.
-        Return a decrypted version of the message provided by the user.
+        Return a decrypted version of the message provided
         """
-        return self.encrypt(message)
+        pass
     
-    def reflector_output(self, char):
+    def __process_char(self, char):
+        pass
+
+    def __reflector_mapping_output(self, char):
         """
-        The reflector_output method simulate an reflector mapping to ensures that the encryption process is reversible.
-        It creates a reciprocal mapping, meaning each input contact is paired with a corresponding output contact, and vice versa.
+        Return the char after reflector mapping
         """
         try:
             if char.isalpha():
@@ -46,3 +69,12 @@ class Enigma:
                 raise ValueError("Input characther must be alphabetic and non-special")
         except KeyError:
             raise ValueError(f"Character {char} cannot be mapped")
+        
+    def __rotate_rotor(self, mapping):
+        """
+        Return a new dictionary with the values one position to the right
+        """
+        keys = list(mapping.keys())
+        values = list(mapping.values())
+        rotated_values = [values[-1]] + values[:-1]
+        return dict(zip(keys, rotated_values))
