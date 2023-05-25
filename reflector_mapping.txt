@@ -1,0 +1,12 @@
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+
+T E K W B P S V N Z C M L I Y F U X G A Q H D R O J 
+
+{
+    'A': 'T', 'B': 'E', 'C': 'K', 'D': 'W', 'E': 'B', 
+    'F': 'P', 'G': 'S', 'H': 'V', 'I': 'N', 'J': 'Z',
+    'K': 'C', 'L': 'M', 'M': 'L', 'N': 'I', 'O': 'Y',
+    'P': 'F', 'Q': 'U', 'R': 'X', 'S': 'G', 'T': 'A',
+    'U': 'Q', 'V': 'H', 'W': 'D', 'X': 'R', 'Y': 'O', 
+    'Z': 'J'
+ }

@@ -1,0 +1,44 @@
+ChatGPT example for enigma.
+Using the reflector wiring configuration map you provided:
+
+wiring = {
+    'A': 'E',
+    'B': 'J',
+    'C': 'M',
+    'D': 'Z',
+    'E': 'A',
+    'F': 'L',
+    'G': 'Y',
+    'H': 'X',
+    'I': 'V',
+    'J': 'B',
+    'K': 'W',
+    'L': 'F',
+    'M': 'C',
+    'N': 'R',
+    'O': 'Q',
+    'P': 'U',
+    'Q': 'O',
+    'R': 'N',
+    'S': 'T',
+    'T': 'S',
+    'U': 'P',
+    'V': 'I',
+    'W': 'K',
+    'X': 'H',
+    'Y': 'G',
+    'Z': 'D'
+}
+
+Here is the encryption of the message "HELLOMYNAMEISBARRYALLEN":
+
+Input: H
+
+    - Plugboard: No mapping defined.
+    - Rotors: Rotate according to the stepping mechanism.
+    - Forward Pass: H -> O -> D (through rotors I, II, and III)
+    - Reflector: D -> Z
+    - Backward Pass: Z -> N -> J (through rotors III, II, and I)
+    - Plugboard: No mapping defined.
+
+Encrypted Output: J

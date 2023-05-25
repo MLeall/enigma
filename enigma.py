@@ -16,6 +16,7 @@ class Enigma:
                 encrypted_char = '' # method responsible for process and encrypt the char. Still need to be coded.
 
                 encrypted_message += encrypted_char
+            # else block or possible try/except block
         return encrypted_message
 
     def decrypt(self, message):
@@ -24,3 +25,24 @@ class Enigma:
         Return a decrypted version of the message provided by the user.
         """
         return self.encrypt(message)
+    
+    def reflector_output(self, char):
+        """
+        The reflector_output method simulate an reflector mapping to ensures that the encryption process is reversible.
+        It creates a reciprocal mapping, meaning each input contact is paired with a corresponding output contact, and vice versa.
+        """
+        try:
+            if char.isalpha():
+                reflector_mapping = {
+                    'A': 'T', 'B': 'E', 'C': 'K', 'D': 'W', 'E': 'B', 
+                    'F': 'P', 'G': 'S', 'H': 'V', 'I': 'N', 'J': 'Z',
+                    'K': 'C', 'L': 'M', 'M': 'L', 'N': 'I', 'O': 'Y',
+                    'P': 'F', 'Q': 'U', 'R': 'X', 'S': 'G', 'T': 'A',
+                    'U': 'Q', 'V': 'H', 'W': 'D', 'X': 'R', 'Y': 'O', 
+                    'Z': 'J'
+                }
+                return reflector_mapping[char.upper()]
+            else:
+                raise ValueError("Input characther must be alphabetic and non-special")
+        except KeyError:
+            raise ValueError(f"Character {char} cannot be mapped")
