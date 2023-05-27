@@ -1,7 +1,8 @@
 class Enigma:
     # Enigma class should have the rotors logic, encryption and decryption logic and a management method to ensure consistency.
     def __init__(self) -> None:
-        self.rotors_position = [0 , 0 , 0]
+        self.rotor_counter = 0
+        self.decrypt_counter = 0
         # Default mapping for rotors 1, 2, 3:
         self.rotor1_mapping = {
             'A': 'G', 'B': 'R', 'C': 'S', 'D': 'J', 'E': 'K',
@@ -27,28 +28,75 @@ class Enigma:
             'U': 'F', 'V': 'A', 'W': 'R', 'X': 'F', 'Y': 'N',
             'Z': 'W'
         }
+           
+    def __rotate_rotor(self, mapping):
+        """
+        Return a new dictionary with the values one position to the right
+        """
+        keys = list(mapping.keys())
+        values = list(mapping.values())
+        rotated_values = [values[-1]] + values[:-1]
+        return dict(zip(keys, rotated_values))
+    
+    def __reverse_rotate_rotor(self, mapping):
+        keys = list(mapping.keys())
+        values = list(mapping.values())
+        rotated_values = values[1:] + [values[0]]
+        return dict(zip(keys, rotated_values))
 
     def encrypt(self, message):
         """
         Return a encrypted version of the message provided
         """
         encrypted_message = ''
-        for char in encrypted_message:
-            if char.upper().isalpha():
-                encrypted_char = '' # method responsible for process and encrypt the char. Still need to be coded.
-
-                encrypted_message += encrypted_char
-            # else block or possible try/except block
+        for char in message:
+            try:
+                if char.isalpha():
+                    encrypted_char = self.__encrypt_char(char.upper())
+                    encrypted_message += encrypted_char
+            except Exception:
+                print(f'Input character must be alphabetic and non-special')
+                return None
         return encrypted_message
 
-    def decrypt(self, message):
+    def __encrypt_char(self, char):
         """
-        Return a decrypted version of the message provided
+        Encrypts a single character using the Enigma rotors
         """
-        pass
+        char = char.upper()
+        
+        mapped_char1 = self.rotor1_mapping[char]
+
+        if self.rotor_counter >= 26:
+            if self.rotor_counter >= 52:
+                self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)
+                self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)
+                self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)
+                
+                mapped_char2 = self.rotor1_mapping[mapped_char1]
+                self.rotor2_mapping = self.__rotate_rotor(self.rotor2_mapping)
+                self.rotor2_mapping = self.__rotate_rotor(self.rotor2_mapping)
+
+                mapped_char3 = self.rotor1_mapping[mapped_char2]
+                self.rotor3_mapping = self.__rotate_rotor(self.rotor3_mapping)
+                self.rotor_counter += 1    
+            else:
+                self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)
+                self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)
+
+                mapped_char2 = self.rotor1_mapping[mapped_char1]
+                self.rotor2_mapping = self.__rotate_rotor(self.rotor2_mapping)
+
+                mapped_char3 = self.rotor1_mapping[mapped_char2]
+                self.rotor_counter += 1
+        else:
+            self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)
+            mapped_char2 = self.rotor2_mapping[mapped_char1]
+            mapped_char3 = self.rotor3_mapping[mapped_char2]
+            self.rotor_counter += 1
     
-    def __process_char(self, char):
-        pass
+        mapped_char = self.__reflector_mapping_output(mapped_char3)
+        return mapped_char
 
     def __reflector_mapping_output(self, char):
         """
@@ -66,15 +114,62 @@ class Enigma:
                 }
                 return reflector_mapping[char.upper()]
             else:
-                raise ValueError("Input characther must be alphabetic and non-special")
+                raise ValueError("Input character must be alphabetic and non-special")
         except KeyError:
             raise ValueError(f"Character {char} cannot be mapped")
-        
-    def __rotate_rotor(self, mapping):
+
+    def __revesed_string(self, message):
+        message = list(reversed(message))
+        reversed_string = ''
+        for char in message:
+            reversed_string += char
+        return reversed_string
+
+    def decrypt(self, message):
         """
-        Return a new dictionary with the values one position to the right
+        Return the decrypted version of the message provided
         """
-        keys = list(mapping.keys())
-        values = list(mapping.values())
-        rotated_values = [values[-1]] + values[:-1]
-        return dict(zip(keys, rotated_values))
+        message = self.__revesed_string(message)
+        decrypted_message = ''
+        for char in message:
+            try:
+                if char.isalpha():
+                    decrypted_char = self.__decrypt_char(char.upper())
+                    decrypted_message += decrypted_char
+            except Exception:
+                print(f'Input character must be alphabetic and non-special')
+                return None
+        return self.__revesed_string(decrypted_message)
+
+    def __decrypt_char(self, char):
+        """
+        Decrypts a single character using the Enigma rotors
+        """
+        self.decrypt_counter = self.rotor_counter
+
+        mapped_char3 = self.__reflector_mapping_output(char)
+
+        if self.rotor_counter >= 26:
+            if self.rotor_counter >= 52:
+                self.rotor3_mapping = self.__reverse_rotate_rotor(self.rotor3_mapping)
+                mapped_char2 = self.rotor3_mapping[mapped_char3]
+                self.rotor2_mapping = self.__reverse_rotate_rotor(self.rotor2_mapping)
+                mapped_char1 = self.rotor2_mapping[mapped_char2]
+                self.rotor1_mapping = self.__reverse_rotate_rotor(self.rotor1_mapping)
+                mapped_char = self.rotor1_mapping[mapped_char1]
+                self.decrypt_counter -= 1    
+            else:
+                mapped_char2 = self.rotor3_mapping[mapped_char3]
+                self.rotor2_mapping = self.__reverse_rotate_rotor(self.rotor2_mapping)
+                mapped_char1 = self.rotor2_mapping[mapped_char2]
+                self.rotor1_mapping = self.__reverse_rotate_rotor(self.rotor1_mapping)
+                mapped_char = self.rotor1_mapping[mapped_char1]
+                self.decrypt_counter -= 1
+        else:
+            mapped_char2 = self.rotor3_mapping[mapped_char3]
+            mapped_char1 = self.rotor2_mapping[mapped_char2]
+            self.rotor1_mapping = self.__reverse_rotate_rotor(self.rotor1_mapping)
+            mapped_char = self.rotor1_mapping[mapped_char1]
+            self.decrypt_counter -= 1
+
+        return mapped_char
