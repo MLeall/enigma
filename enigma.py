@@ -5,28 +5,22 @@ class Enigma:
         self.decrypt_counter = 0
         # Default mapping for rotors 1, 2, 3:
         self.rotor1_mapping = {
-            'A': 'G', 'B': 'R', 'C': 'S', 'D': 'J', 'E': 'K',
-            'F': 'X', 'G': 'A', 'H': 'V', 'I': 'T', 'J': 'D',
-            'K': 'E', 'L': 'M', 'M': 'L', 'N': 'U', 'O': 'P',
-            'P': 'F', 'Q': 'Z', 'R': 'B', 'S': 'C', 'T': 'I',
-            'U': 'N', 'V': 'H', 'W': 'Y', 'X': 'Q', 'Y': 'W',
-            'Z': 'O'
+            'O': 'S', 'H': 'V', 'E': 'R', 'Y': 'U', 'V': 'H', 'K': 'A', 'P': 'N', 
+            'L': 'B', 'M': 'G', 'X': 'J', 'W': 'D', 'U': 'Y', 'T': 'F', 'Q': 'Z', 
+            'I': 'C', 'B': 'L', 'S': 'O', 'J': 'X', 'Z': 'Q', 'F': 'T', 'A': 'K', 
+            'N': 'P', 'C': 'I', 'G': 'M', 'D': 'W', 'R': 'E'
         }
         self.rotor2_mapping = {
-            'A': 'Y', 'B': 'E', 'C': 'G', 'D': 'L', 'E': 'B',
-            'F': 'U', 'G': 'C', 'H': 'P', 'I': 'T', 'J': 'Z',
-            'K': 'Q', 'L': 'D', 'M': 'X', 'N': 'A', 'O': 'W',
-            'P': 'H', 'Q': 'K', 'R': 'S', 'S': 'R', 'T': 'I',
-            'U': 'F', 'V': 'N', 'W': 'O', 'X': 'M', 'Y': 'V',
-            'Z': 'J'
+            'T': 'P', 'R': 'A', 'V': 'L', 'D': 'N', 'B': 'G', 'J': 'X', 'N': 'D', 
+            'F': 'O', 'K': 'Q', 'O': 'F', 'Z': 'S', 'Y': 'C', 'L': 'V', 'I': 'W', 
+            'W': 'I', 'C': 'Y', 'M': 'U', 'G': 'B', 'H': 'E', 'Q': 'K', 'U': 'M', 
+            'E': 'H', 'A': 'R', 'P': 'T', 'X': 'J', 'S': 'Z'
         }
         self.rotor3_mapping = {
-            'A': 'Z', 'B': 'C', 'C': 'B', 'D': 'O', 'E': 'P',
-            'F': 'U', 'G': 'S', 'H': 'J', 'I': 'T', 'J': 'H',
-            'K': 'Q', 'L': 'M', 'M': 'L', 'N': 'Y', 'O': 'D',
-            'P': 'E', 'Q': 'K', 'R': 'X', 'S': 'G', 'T': 'I',
-            'U': 'F', 'V': 'A', 'W': 'R', 'X': 'F', 'Y': 'N',
-            'Z': 'W'
+            'V': 'X', 'S': 'N', 'T': 'E', 'O': 'F', 'X': 'V', 'F': 'O', 'J': 'D', 
+            'A': 'G', 'C': 'R', 'I': 'M', 'M': 'I', 'H': 'P', 'K': 'W', 'U': 'Y', 
+            'Q': 'L', 'Y': 'U', 'R': 'C', 'W': 'K', 'D': 'J', 'G': 'A', 'Z': 'B', 
+            'L': 'Q', 'N': 'S', 'P': 'H', 'E': 'T', 'B': 'Z'
         }
            
     def __rotate_rotor(self, mapping):
@@ -71,23 +65,24 @@ class Enigma:
             if self.rotor_counter >= 52:
                 self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)
                 self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)
-                self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)
-                
+                self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)             
                 mapped_char2 = self.rotor1_mapping[mapped_char1]
-                self.rotor2_mapping = self.__rotate_rotor(self.rotor2_mapping)
-                self.rotor2_mapping = self.__rotate_rotor(self.rotor2_mapping)
 
+                self.rotor2_mapping = self.__rotate_rotor(self.rotor2_mapping)
+                self.rotor2_mapping = self.__rotate_rotor(self.rotor2_mapping)
                 mapped_char3 = self.rotor1_mapping[mapped_char2]
+
                 self.rotor3_mapping = self.__rotate_rotor(self.rotor3_mapping)
+
                 self.rotor_counter += 1    
             else:
                 self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)
                 self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)
-
                 mapped_char2 = self.rotor1_mapping[mapped_char1]
-                self.rotor2_mapping = self.__rotate_rotor(self.rotor2_mapping)
 
+                self.rotor2_mapping = self.__rotate_rotor(self.rotor2_mapping)
                 mapped_char3 = self.rotor1_mapping[mapped_char2]
+
                 self.rotor_counter += 1
         else:
             self.rotor1_mapping = self.__rotate_rotor(self.rotor1_mapping)
@@ -149,27 +144,43 @@ class Enigma:
 
         mapped_char3 = self.__reflector_mapping_output(char)
 
-        if self.rotor_counter >= 26:
-            if self.rotor_counter >= 52:
+        if self.rotor_counter > 26:
+            if self.rotor_counter > 52:
                 self.rotor3_mapping = self.__reverse_rotate_rotor(self.rotor3_mapping)
-                mapped_char2 = self.rotor3_mapping[mapped_char3]
+                mapped_char2 = self.__find_key_by_value(self.rotor3_mapping, mapped_char3)
+
                 self.rotor2_mapping = self.__reverse_rotate_rotor(self.rotor2_mapping)
-                mapped_char1 = self.rotor2_mapping[mapped_char2]
+                self.rotor2_mapping = self.__reverse_rotate_rotor(self.rotor2_mapping)
+                mapped_char1 = self.__find_key_by_value(self.rotor2_mapping, mapped_char2)
+
                 self.rotor1_mapping = self.__reverse_rotate_rotor(self.rotor1_mapping)
-                mapped_char = self.rotor1_mapping[mapped_char1]
+                self.rotor1_mapping = self.__reverse_rotate_rotor(self.rotor1_mapping)
+                self.rotor1_mapping = self.__reverse_rotate_rotor(self.rotor1_mapping)
+                mapped_char = self.__find_key_by_value(self.rotor1_mapping, mapped_char1)
+
                 self.decrypt_counter -= 1    
             else:
-                mapped_char2 = self.rotor3_mapping[mapped_char3]
+                mapped_char2 = self.__find_key_by_value(self.rotor3_mapping, mapped_char3)
+
                 self.rotor2_mapping = self.__reverse_rotate_rotor(self.rotor2_mapping)
-                mapped_char1 = self.rotor2_mapping[mapped_char2]
+                mapped_char1 = self.__find_key_by_value(self.rotor2_mapping, mapped_char2)
+
                 self.rotor1_mapping = self.__reverse_rotate_rotor(self.rotor1_mapping)
-                mapped_char = self.rotor1_mapping[mapped_char1]
+                self.rotor1_mapping = self.__reverse_rotate_rotor(self.rotor1_mapping)
+                mapped_char = self.__find_key_by_value(self.rotor1_mapping, mapped_char1)
+                
                 self.decrypt_counter -= 1
         else:
-            mapped_char2 = self.rotor3_mapping[mapped_char3]
-            mapped_char1 = self.rotor2_mapping[mapped_char2]
+            mapped_char2 = self.__find_key_by_value(self.rotor3_mapping, mapped_char3)
+            mapped_char1 = self.__find_key_by_value(self.rotor2_mapping, mapped_char2)
             self.rotor1_mapping = self.__reverse_rotate_rotor(self.rotor1_mapping)
-            mapped_char = self.rotor1_mapping[mapped_char1]
+            mapped_char = self.__find_key_by_value(self.rotor1_mapping, mapped_char1)
             self.decrypt_counter -= 1
 
         return mapped_char
+
+    def __find_key_by_value(self, dictionary, value):
+        for key, val in dictionary.items():
+            if val == value:
+                return key
+        return None

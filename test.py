@@ -2,12 +2,9 @@ from enigma import Enigma
 
 test_object = Enigma()
 print()
-a = test_object.encrypt('amigo')
-print(a)
+a = test_object.encrypt('Bem vinde a criptografia')
+print(f'CRIPTOGRAFADO: {a}')
 
-
-"""a = test_object.encrypt("amigo")
-print(a)
 
 b = test_object.decrypt(a)
-print(b)"""
+print(f'DESCRIPTOGRAFADO: {b}')
